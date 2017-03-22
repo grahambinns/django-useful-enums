@@ -78,3 +78,12 @@ class Enum:
         keys = sorted(self._display_name_mappings.keys())
         return tuple(
             (id, self._display_name_mappings[id]) for id in keys)
+
+    def get_display_name(self, id):
+        """Given an that's recorded in this Enum instance, return the
+        display name for that value.
+        """
+        if id not in self._display_name_mappings:
+            raise ValueError(
+                "Enum does not have an ID '{0}'.".format(id))
+        return self._display_name_mappings[id]

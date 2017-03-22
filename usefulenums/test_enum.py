@@ -93,3 +93,28 @@ class EnumAsChoicesTestCase(TestCase):
             (2, "Choice two"),
         )
         self.assertEqual(expected_choices, enum.as_choices())
+
+
+class EnumGetDisplayNameTestCase(TestCase):
+    """Tests for Enum.get_display_name()."""
+
+    def test_returns_display_name_for_a_given_value(self):
+        # When passed an Enum item, get_display_name() will return the
+        # display name for that item.
+        enum = Enum(
+            (1, "CHOICE_1", "Choice one"),
+            (2, "CHOICE_2", "Choice two"),
+            (0, "CHOICE_0", "Choice zero"),
+        )
+        self.assertEqual("Choice one", enum.get_display_name(enum.CHOICE_1))
+
+    def test_raises_value_error_if_no_such_id_present(self):
+        # If passed an ID that it doesn't recognise, get_display_name()
+        # will raise a ValueError.
+        enum = Enum(
+            (1, "CHOICE_1", "Choice one"),
+            (2, "CHOICE_2", "Choice two"),
+            (0, "CHOICE_0", "Choice zero"),
+        )
+        with self.assertRaises(ValueError):
+            enum.get_display_name("123123123")
