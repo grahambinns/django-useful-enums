@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
   name='django-useful-enums',
   packages=['usefulenums'],
-  version='0.1',
+  version='0.1.1',
   description='A useful enumeration / choice library for Django.',
   author='Graham Binns',
   author_email='graham@outcoded.uk',
