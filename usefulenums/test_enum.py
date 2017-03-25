@@ -118,3 +118,26 @@ class EnumGetDisplayNameTestCase(TestCase):
         )
         with self.assertRaises(ValueError):
             enum.get_display_name("123123123")
+
+
+class EnumKeysTestCase(TestCase):
+    """Test for Enum.keys()."""
+
+    def test_returns_ids_as_a_list(self):
+        # Enum.keys() returns  the IDs of all the elements of the Enum
+        # as a list.
+        enum = Enum(
+            (0, "CHOICE_0", "Choice zero"),
+            (1, "CHOICE_1", "Choice one"),
+            (2, "CHOICE_2", "Choice two"),
+        )
+        self.assertIsInstance(enum.keys(), list)
+
+    def test_returns_all_ids(self):
+        # keys() returns all of the IDs of the Enum elements.
+        enum = Enum(
+            ("A", "THING_A", "Thing A"),
+            ("B", "THING_B", "Thing B"),
+            ("C", "THING_C", "Thing C"),
+        )
+        self.assertEqual(["A", "B", "C"], enum.keys())

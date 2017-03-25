@@ -41,7 +41,7 @@ class Enum:
                     "You can't mix 2- and 3-tuples when creating an Enum.")
 
             if len(item) == 2:
-                id = next(self.ids)
+                id = next(self.__ids)
                 python_name, display_name = item
             else:
                 id, python_name, display_name = item
@@ -54,7 +54,7 @@ class Enum:
             self._display_name_mappings[id] = display_name
 
     @property
-    def ids(self):
+    def __ids(self):
         """A generator that yields linearly-increasing integers."""
         if self._last_id is None:
             self._last_id = 0
@@ -87,3 +87,7 @@ class Enum:
             raise ValueError(
                 "Enum does not have an ID '{0}'.".format(id))
         return self._display_name_mappings[id]
+
+    def keys(self):
+        """Return all the IDs in this Enum as a list."""
+        return list(self._display_name_mappings.keys())
