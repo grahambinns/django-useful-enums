@@ -90,12 +90,22 @@ class Enum:
         return self._display_name_mappings[id]
 
 
-def enum_to_choices(enum_, stringifier=stringcase.sentencecase):
+def enum_to_choices(
+        enum_,
+        name_as_value=False,
+        stringifier=stringcase.sentencecase):
     """Given an Enum, return a tuple of Django choice two-tuples.
 
     :param enum_: The enum.Enum to convert.
+    :param name_as_value: Boolean indicating whether the `name` of an
+        enum item should be returned as its value, and the value ignored.
+        This is useful where you want to store string values instead of
+        integers for enums.
     :param stringifier: The function to use to convert enum names into
         strings for display. Defaults to stringcase.sentencecase().
     :return: A tuple of two-tuples in the form (`value`, `stringified_name`).
     """
-    return tuple((item.value, stringifier(item.name)) for item in enum_)
+    if name_as_value:
+        return tuple((item.name, stringifier(item.name)) for item in enum_)
+    else:
+        return tuple((item.value, stringifier(item.name)) for item in enum_)

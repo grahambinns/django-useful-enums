@@ -156,3 +156,20 @@ class EnumToChoicesTestCase(TestCase):
             expected_choices,
             enum_to_choices(TestEnum, stringifier=lambda s: s.upper())
         )
+
+    def test_name_as_value_converts_name_to_string(self):
+        # If name_as_value is True, enum_to_choices() will return a two
+        # tuple of (name, stringified_name) instead of (value,
+        # stringified_name).
+        class TestEnum(enum.Enum):
+            value_1 = "a value"
+            value_2 = "another value"
+
+        expected_choices = (
+            ("value_1", "Value 1"),
+            ("value_2", "Value 2"),
+        )
+        self.assertEqual(
+            expected_choices,
+            enum_to_choices(TestEnum, name_as_value=True),
+        )
