@@ -5,7 +5,11 @@
 
 from unittest import TestCase
 
-from usefulenums.enum import Enum
+import enum
+from usefulenums.enum import (
+    Enum,
+    enum_to_choices,
+)
 
 
 class EnumInitTestCase(TestCase):
@@ -118,3 +122,37 @@ class EnumGetDisplayNameTestCase(TestCase):
         )
         with self.assertRaises(ValueError):
             enum.get_display_name("123123123")
+
+
+class EnumToChoicesTestCase(TestCase):
+    """Tests for enum_to_choices()."""
+
+    def test_returns_choices_from_classic_enum(self):
+        # enum_to_choices() will take a regular Python Enum and return a
+        # tuple of two-tuples of (value, stringified name) for each item
+        # in the Enum.
+        class TestEnum(enum.Enum):
+            value_1 = "a value"
+            value_2 = "another value"
+
+        expected_choices = (
+            ("a value", "Value 1"),
+            ("another value", "Value 2"),
+        )
+        self.assertEqual(expected_choices, enum_to_choices(TestEnum))
+
+    def test_uses_passed_stringification_function(self):
+        # enum_to_choices() accepts a stringifier argument which
+        # dictates how the enum item names are turned into strings.
+        class TestEnum(enum.Enum):
+            value_1 = "a value"
+            value_2 = "another value"
+
+        expected_choices = (
+            ("a value", "VALUE_1"),
+            ("another value", "VALUE_2"),
+        )
+        self.assertEqual(
+            expected_choices,
+            enum_to_choices(TestEnum, stringifier=lambda s: s.upper())
+        )

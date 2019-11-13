@@ -3,6 +3,7 @@
 """A utility for describing enums in a DRY and Django style."""
 
 import re
+import stringcase
 
 
 __metaclass__ = type
@@ -87,3 +88,14 @@ class Enum:
             raise ValueError(
                 "Enum does not have an ID '{0}'.".format(id))
         return self._display_name_mappings[id]
+
+
+def enum_to_choices(enum_, stringifier=stringcase.sentencecase):
+    """Given an Enum, return a tuple of Django choice two-tuples.
+
+    :param enum_: The enum.Enum to convert.
+    :param stringifier: The function to use to convert enum names into
+        strings for display. Defaults to stringcase.sentencecase().
+    :return: A tuple of two-tuples in the form (`value`, `stringified_name`).
+    """
+    return tuple((item.value, stringifier(item.name)) for item in enum_)
