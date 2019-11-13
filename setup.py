@@ -11,7 +11,11 @@ setup(
     download_url=(
       "https://github.com/grahambinns/django-useful-enums/archive/1.0.tar.gz"),
     keywords=["django", "choices", "enumerations"],
-    classifiers=[],
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
     install_requires=[
       "stringcase",
     ]
