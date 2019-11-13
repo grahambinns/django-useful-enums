@@ -1,5 +1,8 @@
 # Useful Enums - a library for creating Enums in a DRY way in Python
 
+[![Build
+Status](https://travis-ci.org/grahambinns/django-useful-enums.png?branch=master)](https://travis-ci.org/grahambinns/django-useful-enums)
+
 This library grew out of me getting fed up with having to create Django
 choices that were lists of tuples. I far preferred nicely contained enums of
 the form:
